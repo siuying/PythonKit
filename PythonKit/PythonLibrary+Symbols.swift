@@ -284,3 +284,15 @@ let PyNumber_InPlaceXor: PyBinaryOperation =
 
 let PyNumber_Invert: PyUnaryOperation =
     PythonLibrary.loadSymbol(name: "PyNumber_Invert")
+
+let PyEval_SaveThread: @convention(c) () -> UnsafeMutableRawPointer =
+    PythonLibrary.loadSymbol(name: "PyEval_SaveThread")
+
+let PyEval_RestoreThread: @convention(c) (UnsafeMutableRawPointer) -> Void =
+    PythonLibrary.loadSymbol(name: "PyEval_RestoreThread")
+
+let PyGILState_Ensure: @convention(c) () -> Int =
+    PythonLibrary.loadSymbol(name: "PyGILState_Ensure")
+
+let PyGILState_Release: @convention(c) (Int) -> Void =
+    PythonLibrary.loadSymbol(name: "PyGILState_Release")
