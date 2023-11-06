@@ -7,7 +7,7 @@ class PythonFunctionTests: XCTestCase {
         let versionMinor = Python.versionInfo.minor
         return (versionMajor == 3 && versionMinor >= 1) || versionMajor > 3
     }
-    
+
     func testPythonFunction() {
         guard canUsePythonFunction else {
             return

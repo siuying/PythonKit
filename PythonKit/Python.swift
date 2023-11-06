@@ -293,9 +293,6 @@ public struct ThrowingPythonObject {
     @discardableResult
     public func dynamicallyCall(
         withArguments args: [PythonConvertible] = []) throws -> PythonObject {
-        let state = PyGILState_Ensure()
-        defer { PyGILState_Release(state) }
-
         try throwPythonErrorIfPresent()
         
         // Positional arguments are passed as a tuple of objects.
@@ -340,9 +337,6 @@ public struct ThrowingPythonObject {
     /// Implementation of `dynamicallyCall(withKeywordArguments)`.
     private func _dynamicallyCall<T : Collection>(_ args: T) throws -> PythonObject
     where T.Element == (key: String, value: PythonConvertible) {
-        let state = PyGILState_Ensure()
-        defer { PyGILState_Release(state) }
-
         try throwPythonErrorIfPresent()
         
         // An array containing positional arguments.
@@ -679,7 +673,7 @@ public let Python = PythonInterface()
 public struct PythonInterface {
     /// A dictionary of the Python builtins.
     public let builtins: PythonObject
-    
+
     init() {
         Py_Initialize()   // Initialize Python
         builtins = PythonObject(PyEval_GetBuiltins())
